@@ -92,7 +92,7 @@ int spawn(Map *map, Spawner *spawner, char element) {
   return 0;
 }
 
-int check(int op, Map *map, Spawner *spawner) {
+int check(int op, Map *map) {
   // save the map sand positions
   // check against old positions to verify movement
   int is_diff = 0;
@@ -120,7 +120,7 @@ int check(int op, Map *map, Spawner *spawner) {
 }
 int logic(Map *map, Spawner *spawner, char element, char *dir) {
   // save
-  check(SAVE, map, spawner);
+  check(SAVE, map);
   // move sand
   for (int i = map->cols - 1; i >= 0; i--) {
     for (int j = 0; j < map->rows; j++) {
@@ -164,7 +164,7 @@ int logic(Map *map, Spawner *spawner, char element, char *dir) {
     return 1;
   }
   // check and spawn
-  if (check(CHECK, map, spawner) != 1) {
+  if (check(CHECK, map) != 1) {
     *dir = 'l';
     spawn(map, spawner, element);
   }
