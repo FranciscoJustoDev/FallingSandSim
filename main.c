@@ -9,7 +9,7 @@
 #define WATER '~'
 #define OPEN_SPACE '.'
 #define LEVEL_TEST "test.txt"
-#define LEVEL_1 "heart.txt"
+#define LEVEL_1 "/Users/codecadet/Work/C/FallingSandSim/heart.txt"
 #define LEVEL_2 "hi.txt"
 
 typedef struct {
@@ -27,6 +27,7 @@ typedef struct {
 
 Map *createMap(char *level) {
   Map *newMap = malloc(sizeof(Map));
+  printf("allocated map\n");
 
   FILE *fp = fopen(level, "r");
   if (fp == NULL) {
@@ -51,14 +52,19 @@ Map *createMap(char *level) {
   }
   newMap->cols = i + 1;
 
+  printf("COMPLETE: reading rows and cols from file.\n");
+
   newMap->map = malloc(sizeof(char *) * newMap->cols);
+  newMap->second_map = malloc(sizeof(char *) * newMap->cols);
+  printf("COMPLETE: Allocated heights\n");
+
   for (int i = 0; i < newMap->cols; i++) {
     newMap->map[i] = malloc(sizeof(char) * newMap->rows);
   }
-  newMap->second_map = malloc(sizeof(char *) * newMap->cols);
   for (int i = 0; i < newMap->cols; i++) {
     newMap->second_map[i] = malloc(sizeof(char) * newMap->rows);
   }
+  printf("COMPLETE: Allocated widths\n");
 
   fseek(fp, 0, SEEK_SET);
   i = 0;
@@ -71,8 +77,9 @@ Map *createMap(char *level) {
       i++;
     }
   }
+  printf("COMPLETE: Reading operations.\n");
 
-  free(fp);
+  fclose(fp);
   return newMap;
 }
 
