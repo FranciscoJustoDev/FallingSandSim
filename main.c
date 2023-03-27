@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define SAVE 0
 #define CHECK 1
@@ -178,8 +179,12 @@ int logic(Map *map, Spawner *spawner, char element, char *dir) {
   return 0;
 }
 
-int main() {
-  Map *map = createMap(LEVEL_1);
+int main(int argc, char **argv) {
+  char lvl[15];
+  if(argc > 1){
+    strcpy(lvl, argv[1]);
+  }
+  Map *map = createMap(lvl);
 
   Spawner spawner = {0, 4, 0};
   int next_spawn = 0;
